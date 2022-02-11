@@ -1,0 +1,55 @@
+body {
+	background: linear-gradient(-45deg, #ee7752, #6b32a1, #2a90a8, #3783d5);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+	height: 100vh;
+}
+
+.container.bodycont {
+    font-size: 1.3em;
+
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.navfont {
+  font-family: 'Russo One', sans-serif;
+  font-size: 1.35em;
+  margin-bottom: 10px;
+}
+
+.rightPadBtn {
+    margin-right: 0.8rem;
+}
+
+h1.mainh1{
+    font-family: 'Russo One', sans-serif;
+    font-weight: bold;
+}
+
+.bigbrand {
+    font-size: 1.3em;
+    padding-right: 0.5em;
+}
+
+.loader{
+  filter:hue-rotate(0deg);
+  color:linear-gradient(45deg,#6b32a1,#2a90a8);
+  animation:hue 10s infinite linear;
+}
+
+@keyframes hue{
+  0%{filter: hue-rotate(0deg);}
+  100%{filter:hue-rotate(360deg);}
+
+}

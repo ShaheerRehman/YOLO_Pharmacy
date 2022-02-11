@@ -1,0 +1,18 @@
+{% extends 'yolo_pharmacy/base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+    <h1 class="display-5 fw-bold">Login!</h1>
+    <p class="col-md-8 fs-4">(Must be an admin or an employee, please check admin for issues)</p>
+    <hr>
+    <br>
+    {% if form.errors %}
+        <p>Your username and password didn't match. Please try again!</p>
+    {% endif %}
+    <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form field_class='col-md-6' %}
+        <br>
+        <input type="submit" class="btn btn-primary" value="Login">
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+{% endblock %}
