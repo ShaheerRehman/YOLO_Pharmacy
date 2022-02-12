@@ -1,0 +1,11 @@
+{% extends 'yolo_site/base.html' %}
+{% block content %}
+    <h1 class="display-6 fw-bold">Welcome to my site</h1>
+    <hr>
+    <p></p>
+    {% if user.is_authenticated and user.is_superuser %}
+        <a class="btn btn-primary rightPadBtn" href="{% url 'register' %}">Add Employee</a>
+        <a class="btn btn-primary rightPadBtn" href="{% url 'emp_list' %}">Manage Employees</a>
+    {% endif %}
+    <a class="btn btn-primary rightPadBtn" href="{% url 'about' %}">About Us</a>
+{% endblock %}

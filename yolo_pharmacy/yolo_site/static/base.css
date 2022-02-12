@@ -42,6 +42,15 @@ h1.mainh1{
     padding-right: 0.5em;
 }
 
+.rel{
+    position: relative;
+}
+
+.btn-right{
+    position: absolute;
+    right: 0px;
+}
+
 .loader{
   filter:hue-rotate(0deg);
   color:linear-gradient(45deg,#6b32a1,#2a90a8);

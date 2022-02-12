@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.urls import reverse
+
 
 # Create your models here.
 class Company(models.Model):
@@ -9,6 +12,9 @@ class Company(models.Model):
     address = models.CharField(max_length=255)
     added_on = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.name
+
 class MedDetails(models.Model):
     class Type(models.TextChoices):
         mg = "milligrams"
@@ -17,6 +23,9 @@ class MedDetails(models.Model):
     salt_quantity = models.FloatField()
     salt_quantity_type = models.CharField(max_length=128, choices=Type.choices, default=Type.mg, blank=True, null=True)
     added_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.salt_name
 
 class Medicine(models.Model):
     type = models.ForeignKey('yolo_site.MedDetails', related_name='med_details', on_delete=models.CASCADE)
@@ -30,7 +39,10 @@ class Medicine(models.Model):
     stock = models.PositiveIntegerField()
     pack_qty = models.CharField(max_length=128)
     # in the form of 3 X 10 for a pack of 3 strips containing 10 tabs each or 200 ml for liquids
-    updated_on = models.DateField(auto_now=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
 class Customer(models.Model):
     name = models.CharField(max_length=128)
@@ -38,15 +50,26 @@ class Customer(models.Model):
     address = models.CharField(max_length=255)
     added_on = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.name
+
 class Employee(models.Model):
-    name = models.CharField(max_length=128)
-    job_title = models.CharField(max_length=128)
-    join_date = models.DateField(auto_now_add=True)
-    contact_no = models.CharField(max_length=128)
-    bank_acc = models.CharField(max_length=256)
-    salary = models.FloatField()
-    address = models.CharField(max_length=255)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    # additional
+    name = models.CharField(max_length=128, blank=True)
+    job_title = models.CharField(max_length=128, blank=True)
+    contact_no = models.CharField(max_length=128, blank=True)
+    bank_account = models.CharField(max_length=256, blank=True)
+    salary = models.FloatField(blank=True)
+    address = models.CharField(max_length=255, blank=True)
     added_on = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse('emp_detail', kwargs={"pk":self.pk})
+
+    def __str__(self):
+        return self.user.username
 
 class BillDetails(models.Model):
     customer_id = models.ForeignKey('yolo_site.Customer', related_name='detail_billed_customer', on_delete=models.CASCADE)
@@ -54,3 +77,6 @@ class BillDetails(models.Model):
     quantity = models.PositiveIntegerField()
     total_amount = models.FloatField()
     created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return 'To '+ self.customer_id.name + ' From ' + self.employee_id.name

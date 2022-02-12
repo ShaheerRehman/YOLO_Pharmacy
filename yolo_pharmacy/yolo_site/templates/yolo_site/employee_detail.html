@@ -1,0 +1,18 @@
+{% extends 'yolo_site/base.html' %}
+{% block content %}
+    <h2>Details of {{ employee.job_title }} {{ employee.name }}</h2>
+    <hr>
+    <ul>
+        <li>Name: {{ employee.name }}</li>
+        <li>Job title: {{ employee.job_title }}</li>
+        <li>Username: {{ employee.user.username }}</li>
+        <li>Contact number: {{ employee.contact_no }}</li>
+        <li>Email: {{ employee.user.email }}</li>
+        <li>Address: {{ employee.address }}</li>
+        <li>Salary: {{ employee.salary }}</li>
+        <li>Bank account: {{ employee.bank_account }}</li>
+        <li>Joining date & time: {{ employee.added_on }}</li>
+    </ul>
+    <a class="btn btn-warning rightPadBtn" title="Edit" href="{% url 'emp_edit' pk=employee.pk %}"><span class="material-icons">edit</span></a>
+    <a class="btn btn-danger" title="Delete" href="{% url 'emp_delete' pk=employee.pk %}"><span class="material-icons">delete</span></a>
+{% endblock %}

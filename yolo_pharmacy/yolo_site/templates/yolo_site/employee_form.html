@@ -1,0 +1,96 @@
+{#only admin can access this#}
+{% extends "yolo_site/base.html" %}
+{% load bootstrap5 %}
+{% load static %}
+{% block content %}
+    {% if not form.instance.pk %}
+        <h1 class="display-5 fw-bold">Employee Registration!</h1>
+        {% if registered %}
+            <p class="col-md-8 fs-4">Employee is added successfully!</p>
+        {% else %}
+            <p class="col-md-8 fs-4">Register Here!</p>
+            <hr>
+            <form method='post'>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-6">
+                        {% bootstrap_field user_form.username %}
+                    </div>
+                    <div class="col-6">
+                        {% bootstrap_field user_form.email %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        {% bootstrap_field user_form.password %}
+                    </div>
+                    <div class="col-6">
+                        {% bootstrap_field user_form.confirm_password placeholder='Confirm Password' %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        {% bootstrap_field employee_form.name %}
+                    </div>
+                    <div class="col-4">
+                        {% bootstrap_field employee_form.job_title %}
+                    </div>
+                    <div class="col-4">
+                        {% bootstrap_field employee_form.salary %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        {% bootstrap_field employee_form.contact_no %}
+                    </div>
+                    <div class="col-8">
+                        {% bootstrap_field employee_form.bank_account %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {% bootstrap_field employee_form.address %}
+                    </div>
+                </div>
+                <p></p>
+                <div class="container rel">
+                    <input class="btn btn-primary btn-right" type="submit" value='Add Employee'>
+                </div>
+            </form>
+        {% endif %}
+    {% else %}
+        <h1 class="display-5 fw-bold">Employee Update!</h1>
+        <p class="col-md-8 fs-4">Update Here!</p>
+        <hr>
+        <form method='post'>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-4">
+                    {% bootstrap_field form.name %}
+                </div>
+                <div class="col-4">
+                    {% bootstrap_field form.job_title %}
+                </div>
+                <div class="col-4">
+                    {% bootstrap_field form.salary %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    {% bootstrap_field form.contact_no %}
+                </div>
+                <div class="col-8">
+                    {% bootstrap_field form.bank_account %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    {% bootstrap_field form.address %}
+                </div>
+            </div>
+            <p></p>
+            <input class="btn btn-primary rightPadBtn" type="submit" value='Update Employee'>
+            <a class="btn btn-secondary" href="{% url 'emp_detail' pk=employee.pk %}">Cancel</a>
+        </form>
+    {% endif %}
+{% endblock %}

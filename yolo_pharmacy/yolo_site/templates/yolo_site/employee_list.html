@@ -1,0 +1,22 @@
+{#only admin can access this#}
+{% extends 'yolo_site/base.html' %}
+{% block content %}
+
+    {% if user.is_authenticated and user.is_superuser %}
+        <h3 class="display-6 fw-bold"><u>Employees Manager</u></h3>
+        <br>
+        <a class="btn btn-primary" href="{% url 'register' %}">Add Employee</a>
+        <hr>
+        {% for emp in employee_list %}
+            <h3><a title="Details" href="{% url 'emp_detail' pk=emp.pk %}">{{ emp.job_title }}-{{ emp.name }}</a></h3>
+            <p>Contact number: {{ emp.contact_no }}</p>
+            <p>Joining date & time: {{ emp.added_on }}</p>
+            <hr>
+        {% empty %}
+            <h3>No Employees yet!</h3>
+        {% endfor %}
+    {% else %}
+        <h2>ACCESS NOT ALLOWED!!!</h2>
+        <h4>Only admin can access this page</h4>
+    {% endif %}
+{% endblock %}

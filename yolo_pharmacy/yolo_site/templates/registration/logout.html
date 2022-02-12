@@ -1,5 +1,5 @@
-{% extends 'yolo_pharmacy/base.html' %}
+{% extends 'yolo_site/base.html' %}
 {% block content %}
-    <h1 class="display-5 fw-bold">You are logged out</h1>
-    <p class="col-md-8 fs-4">Go back to <a href="{% url 'post_list' %}">homepage</a>. </p>
+    <h1 class="display-5 fw-bold">You are logged out!</h1>
+    <p class="col-md-8 fs-4">Go back to <a href="{% url 'index' %}">homepage</a>. </p>
 {% endblock %}
