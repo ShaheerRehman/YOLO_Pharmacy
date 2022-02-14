@@ -1,0 +1,16 @@
+{#only admin can access this#}
+{% extends 'yolo_site/base.html' %}
+{% block content %}
+        <h3 class="display-6 fw-bold"><u>Companies Manager</u></h3>
+        <br>
+        <a class="btn btn-primary" href="{% url 'comp_create' %}">Add Company</a>
+        <hr>
+        {% for comp in company_list %}
+            <h3><a title="Details" href="{% url 'comp_detail' pk=comp.pk %}">{{ comp.name }}</a></h3>
+            <p>Contact number: {{ comp.contact_no }}</p>
+            <p>Joining date & time: {{ comp.added_on }}</p>
+            <hr>
+        {% empty %}
+            <h3>No companies yet!</h3>
+        {% endfor %}
+{% endblock %}

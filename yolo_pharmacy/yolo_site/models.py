@@ -12,43 +12,32 @@ class Company(models.Model):
     address = models.CharField(max_length=255)
     added_on = models.DateTimeField(auto_now_add=True)
 
+
+    def get_absolute_url(self):
+        return reverse('comp_detail', kwargs={"pk":self.pk})
+
     def __str__(self):
         return self.name
-
-class MedDetails(models.Model):
-    class Type(models.TextChoices):
-        mg = "milligrams"
-        mcg = "micrograms"
-    salt_name = models.CharField(max_length=128)
-    salt_quantity = models.FloatField()
-    salt_quantity_type = models.CharField(max_length=128, choices=Type.choices, default=Type.mg, blank=True, null=True)
-    added_on = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.salt_name
 
 class Medicine(models.Model):
-    type = models.ForeignKey('yolo_site.MedDetails', related_name='med_details', on_delete=models.CASCADE)
     company = models.ForeignKey('yolo_site.Company', related_name='company', on_delete=models.CASCADE)
+    class Type(models.TextChoices):
+        mg = "mg"
+        mcg = "mcg"
     name = models.CharField(max_length=128)
+    salt_name = models.CharField(max_length=256)
+    salt_quantity = models.FloatField(blank=True, null=True)
+    unit = models.CharField(max_length=128, choices=Type.choices, blank=True, null=True)
     buying_price = models.FloatField()
     selling_price = models.FloatField()
-    shelf_no = models.PositiveIntegerField()
-    expiry = models.DateField()
-    manufacturing = models.DateField()
+    shelf_number = models.PositiveIntegerField()
     stock = models.PositiveIntegerField()
-    pack_qty = models.CharField(max_length=128)
-    # in the form of 3 X 10 for a pack of 3 strips containing 10 tabs each or 200 ml for liquids
+    pack_quantity = models.CharField(max_length=128)
+    # in the form of 10 X 3 for a pack of 3 strips containing 10 tabs each
     updated_on = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.name
-
-class Customer(models.Model):
-    name = models.CharField(max_length=128)
-    contact_no = models.CharField(max_length=128)
-    address = models.CharField(max_length=255)
-    added_on = models.DateTimeField(auto_now_add=True)
+    def get_absolute_url(self):
+        return reverse('med_detail', kwargs={'pk':self.pk})
 
     def __str__(self):
         return self.name
@@ -72,11 +61,11 @@ class Employee(models.Model):
         return self.user.username
 
 class BillDetails(models.Model):
-    customer_id = models.ForeignKey('yolo_site.Customer', related_name='detail_billed_customer', on_delete=models.CASCADE)
     employee_id = models.ForeignKey('yolo_site.Employee', related_name='detail_billing_employee', on_delete=models.CASCADE)
+    customer_name = models.CharField(max_length=128),
     quantity = models.PositiveIntegerField()
     total_amount = models.FloatField()
     created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return 'To '+ self.customer_id.name + ' From ' + self.employee_id.name
+        return 'To '+ str(self.customer_name) + ' From ' + self.employee_id.name

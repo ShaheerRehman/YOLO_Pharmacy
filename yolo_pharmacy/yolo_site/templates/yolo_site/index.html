@@ -3,9 +3,15 @@
     <h1 class="display-6 fw-bold">Welcome to my site</h1>
     <hr>
     <p></p>
-    {% if user.is_authenticated and user.is_superuser %}
-        <a class="btn btn-primary rightPadBtn" href="{% url 'register' %}">Add Employee</a>
-        <a class="btn btn-primary rightPadBtn" href="{% url 'emp_list' %}">Manage Employees</a>
+    {% if user.is_authenticated %}
+        <a class="btn btn-primary rightPadBtn" href="{% url 'med_create' %}">Add Medicine</a>
+        <a class="btn btn-primary rightPadBtn" href="{% url 'med_list' %}">Medicines</a>
+        {% if user.is_superuser %}
+            <a class="btn btn-primary rightPadBtn" href="{% url 'register' %}">Add Employee</a>
+            <a class="btn btn-primary rightPadBtn" href="{% url 'emp_list' %}">Employees</a>
+            <a class="btn btn-primary rightPadBtn" href="{% url 'comp_create' %}">Add Company</a>
+            <a class="btn btn-primary rightPadBtn" href="{% url 'comp_list' %}">Companies</a>
+        {% endif %}
     {% endif %}
     <a class="btn btn-primary rightPadBtn" href="{% url 'about' %}">About Us</a>
 {% endblock %}

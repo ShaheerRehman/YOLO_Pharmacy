@@ -1,0 +1,62 @@
+{% extends 'yolo_site/base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block content %}
+    {% if not form.instance.pk %}
+        <h1 class="display-5 fw-bold">Add Medicine</h1>
+        <hr>
+            <form method='post'>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-4">
+                        {% bootstrap_field form.company %}
+                    </div>
+                    <div class="col-3">
+                        {% bootstrap_field form.name %}
+                    </div>
+                    <div class="col-3">
+                        {% bootstrap_field form.salt_name %}
+                    </div>
+                    <div class="col-2">
+                        {% bootstrap_field form.shelf_number %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        {% bootstrap_field form.salt_quantity %}
+                    </div>
+                    <div class="col-2">
+                        {% bootstrap_field form.unit %}
+                    </div>
+                    <div class="col-2">
+                        {% bootstrap_field form.pack_quantity %}
+                    </div>
+                    <div class="col-2">
+                        {% bootstrap_field form.stock %}
+                    </div>
+                    <div class="col-2">
+                        {% bootstrap_field form.buying_price %}
+                    </div>
+                    <div class="col-2">
+                        {% bootstrap_field form.selling_price %}
+                    </div>
+
+                </div>
+
+                <p></p>
+                    <div class="container rel">
+                        <input class="btn btn-success btn-right" type="submit" value='Add Medicine'>
+                    </div>
+            </form>
+    {% else %}
+        <h1 class="display-5 fw-bold">Update Medicine</h1>
+            <hr>
+            <form method='post'>
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <p></p>
+                    <input type="submit" class="btn btn-success rightPadBtn" value='Update Medicine'>
+                    <a class="btn btn-secondary" href="{% url 'med_detail' pk=medicine.pk %}">Cancel</a>
+            </form>
+    {% endif %}
+{% endblock %}

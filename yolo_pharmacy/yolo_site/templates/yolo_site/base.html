@@ -20,7 +20,10 @@
     /*Rules for sizing the icon*/
     .material-icons.md-32 { font-size: 32px; }
     </style>
-
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon_io/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon_io/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon_io/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'images/favicon_io/site.webmanifest' %}">
     <title>YOLO</title>
 </head>
 <body>
@@ -39,11 +42,17 @@
                 {% if user.is_authenticated %}
                     {% if user.is_superuser %}
                         <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" title="Manage Employees" href="{% url 'emp_list' %}">Manage Employees</a>
+                        <a class="nav-link active" aria-current="page" title="Manage Employees" href="{% url 'emp_list' %}">Employees</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" title="Manage Companies" href="{% url 'comp_list' %}">Companies</a>
                         </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page">Welcome {{ user.username }}</a>
+                        <a class="nav-link active" aria-current="page" title="Manage Medicines" href="{% url 'med_list' %}">Medicines</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page">Welcome <span class="cap">{{ user.username }}</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" title="Logout" href="{% url 'logout' %}"><span class="material-icons md-32">logout</span></a>

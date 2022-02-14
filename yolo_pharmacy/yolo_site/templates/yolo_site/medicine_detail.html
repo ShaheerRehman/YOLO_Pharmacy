@@ -1,0 +1,23 @@
+{% extends 'yolo_site/base.html' %}
+{% block content %}
+    <h2>Details of {{ medicine.name }}</h2>
+    <hr>
+    <ul>
+        <li>Name: {{ medicine.name }}</li>
+        <li>Company: {{ medicine.company.name }}</li>
+        <li>Salt: {{ medicine.salt_name }}</li>
+        {% if medicine.salt_quantity and medicine.unit %}
+            <li>Strength: {{ medicine.salt_quantity }} {{ medicine.unit }}</li>
+        {% elif medicine.salt_quantity %}
+            <li>Strength: {{ medicine.salt_quantity }}</li>
+        {% endif %}
+        <li>Shelf number: {{ medicine.shelf_number }}</li>
+        <li>Buying price: Rs {{ medicine.buying_price }}</li>
+        <li>Selling price: Rs {{ medicine.selling_price }}</li>
+        <li>Stock: {{ medicine.stock }} tablets</li>
+        <li>In a pack (tabsxstrips): {{ medicine.pack_quantity }}</li>
+        <li>Update date & time: {{ medicine.updated_on }}</li>
+    </ul>
+    <a class="btn btn-warning rightPadBtn" title="Edit" href="{% url 'med_edit' pk=medicine.pk %}"><span class="material-icons">edit</span></a>
+    <a class="btn btn-danger" title="Delete" href="{% url 'med_delete' pk=medicine.pk %}"><span class="material-icons">delete</span></a>
+{% endblock %}

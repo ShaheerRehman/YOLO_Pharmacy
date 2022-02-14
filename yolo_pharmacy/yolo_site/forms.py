@@ -7,20 +7,10 @@ class CompanyForm(forms.ModelForm):
         model = models.Company
         exclude = ['added_on']
 
-class MedDetailsForm(forms.ModelForm):
-    class Meta:
-        model = models.MedDetails
-        exclude = ['added_on']
-
 class MedicineForm(forms.ModelForm):
     class Meta:
         model = models.Medicine
         exclude = ['updated_on']
-
-class CustomerForm(forms.ModelForm):
-    class Meta:
-        model = models.Customer
-        exclude = ['added_on']
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())

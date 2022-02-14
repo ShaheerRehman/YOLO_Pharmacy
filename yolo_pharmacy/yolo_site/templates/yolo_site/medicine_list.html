@@ -1,0 +1,20 @@
+{% extends 'yolo_site/base.html' %}
+{% block content %}
+        <h3 class="display-6 fw-bold"><u>Medicines Manager</u></h3>
+        <br>
+        <a class="btn btn-primary" href="{% url 'med_create' %}">Add Medicine</a>
+        <hr>
+        {% for med in medicine_list %}
+            <h3><a title="Details" href="{% url 'med_detail' pk=med.pk %}">{{ med.name }}</a></h3>
+            <p>Company: {{ med.company.name }}</p>
+            {% if med.salt_quantity and med.unit %}
+                <p>Strength: {{ med.salt_quantity }} {{ med.unit }}</p>
+                {% elif med.salt_quantity %}
+                <p>Strength: {{ med.salt_quantity }}</p>
+            {% endif %}
+            <p>Last updated on: {{ med.updated_on }}</p>
+            <hr>
+        {% empty %}
+            <h3>No medicines yet!</h3>
+        {% endfor %}
+{% endblock %}

@@ -5,6 +5,10 @@ body {
 	height: 100vh;
 }
 
+.cap{
+    text-transform: capitalize;
+}
+
 .container.bodycont {
     font-size: 1.3em;
 

@@ -1,0 +1,15 @@
+{% extends 'yolo_site/base.html' %}
+{% block content %}
+    <h2>Details of {{ company.name }}</h2>
+    <hr>
+    <ul>
+        <li>Name: {{ company.name }}</li>
+        <li>Contact number: {{ company.contact_no }}</li>
+        <li>Email: {{ company.email }}</li>
+        <li>License number: {{ company.license_no }}</li>
+        <li>Address: {{ company.address }}</li>
+        <li>Adding date & time: {{ company.added_on }}</li>
+    </ul>
+    <a class="btn btn-warning rightPadBtn" title="Edit" href="{% url 'comp_edit' pk=company.pk %}"><span class="material-icons">edit</span></a>
+    <a class="btn btn-danger" title="Delete" href="{% url 'comp_delete' pk=company.pk %}"><span class="material-icons">delete</span></a>
+{% endblock %}

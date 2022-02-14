@@ -1,0 +1,49 @@
+{% extends 'yolo_site/base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block content %}
+    {% if not form.instance.pk %}
+        <h1 class="display-5 fw-bold">Company Registration!</h1>
+            <p class="col-md-8 fs-4">Register Here!</p>
+        <hr>
+            <form method='post'>
+                {% csrf_token %}
+                    <div class="row">
+                        <div class="col-6">
+                            {% bootstrap_field form.name %}
+                        </div>
+                        <div class="col-6">
+                            {% bootstrap_field form.email %}
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="col-6">
+                        {% bootstrap_field form.license_no %}
+                    </div>
+                    <div class="col-6">
+                        {% bootstrap_field form.contact_no %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {% bootstrap_field form.address %}
+                    </div>
+                </div>
+                <p></p>
+                    <div class="container rel">
+                        <input class="btn btn-success btn-right" type="submit" value='Add Company'>
+                    </div>
+            </form>
+    {% else %}
+        <h1 class="display-5 fw-bold">Company Update!</h1>
+            <p class="col-md-8 fs-4">Update Here!</p>
+            <hr>
+            <form method='post'>
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <p></p>
+                    <input type="submit" class="btn btn-success rightPadBtn" value='Update Company'>
+                    <a class="btn btn-secondary" href="{% url 'comp_detail' pk=company.pk %}">Cancel</a>
+            </form>
+    {% endif %}
+{% endblock %}
