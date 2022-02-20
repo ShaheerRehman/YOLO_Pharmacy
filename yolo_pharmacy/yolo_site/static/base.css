@@ -36,6 +36,10 @@ body {
     margin-right: 0.8rem;
 }
 
+.bottomPadBtn{
+    margin-bottom: 1.2rem;
+}
+
 h1.mainh1{
     font-family: 'Russo One', sans-serif;
     font-weight: bold;

@@ -1,0 +1,15 @@
+{% extends 'yolo_site/base.html' %}
+{% block content %}
+        <h3 class="display-6 fw-bold"><u>Bills Information</u></h3>
+        <br>
+        <a class="btn btn-primary" href="{% url 'bill_create' %}">Generate Bill</a>
+        <hr>
+        {% for bill in billdetails_list %}
+            <h3><a title="Details" href="{% url 'bill_detail' pk=bill.pk %}">Bill Number {{ bill.pk }}</a></h3>
+            <p>Customer: {{ bill.customer }}</p>
+            <p>Creation date & time: {{ bill.created_on }}</p>
+            <hr>
+        {% empty %}
+            <h3>No Bills yet!</h3>
+        {% endfor %}
+{% endblock %}

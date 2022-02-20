@@ -39,3 +39,11 @@ class BillDetailsForm(forms.ModelForm):
     class Meta:
         model = models.BillDetails
         exclude = ['created_on']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        quantity = cleaned_data['quantity']
+        med_id = cleaned_data['med_id']
+        if quantity > med_id.stock:
+            self.add_error('quantity', 'Quantity exceeds stock')
+        return cleaned_data

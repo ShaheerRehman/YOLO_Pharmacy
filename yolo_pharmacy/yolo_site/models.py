@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-
 # Create your models here.
 class Company(models.Model):
     name = models.CharField(max_length=128)
@@ -11,7 +10,6 @@ class Company(models.Model):
     email = models.EmailField()
     address = models.CharField(max_length=255)
     added_on = models.DateTimeField(auto_now_add=True)
-
 
     def get_absolute_url(self):
         return reverse('comp_detail', kwargs={"pk":self.pk})
@@ -36,11 +34,19 @@ class Medicine(models.Model):
     # in the form of 10 X 3 for a pack of 3 strips containing 10 tabs each
     updated_on = models.DateTimeField(auto_now=True)
 
+    def update_stock(self, quantity):
+        self.stock -= quantity
+
     def get_absolute_url(self):
         return reverse('med_detail', kwargs={'pk':self.pk})
 
     def __str__(self):
-        return self.name
+        if not self.salt_quantity:
+            return self.name
+        elif self.salt_quantity and self.unit:
+            return str(self.name) + " " + str(self.salt_quantity) + " " + str(self.unit)
+        else:
+            return str(self.name) + " " + str(self.salt_quantity)
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -61,11 +67,20 @@ class Employee(models.Model):
         return self.user.username
 
 class BillDetails(models.Model):
-    employee_id = models.ForeignKey('yolo_site.Employee', related_name='detail_billing_employee', on_delete=models.CASCADE)
-    customer_name = models.CharField(max_length=128),
+    generated_by = models.ForeignKey('auth.User', editable=False, related_name='detail_billing_employee', on_delete=models.CASCADE)
+    med_id = models.ForeignKey('yolo_site.Medicine', related_name='billed_med', on_delete=models.CASCADE)
+    customer = models.CharField(max_length=128)
     quantity = models.PositiveIntegerField()
-    total_amount = models.FloatField()
     created_on = models.DateTimeField(auto_now_add=True)
 
+    def update_stock(self):
+        self.med_id.update_stock(self.quantity)
+
+    def total_amount(self):
+        return self.quantity * self.med_id.selling_price
+
+    def get_absolute_url(self):
+        return reverse('bill_detail', kwargs={"pk":self.pk})
+
     def __str__(self):
-        return 'To '+ str(self.customer_name) + ' From ' + self.employee_id.name
+        return 'To '+ str(self.customer) + ' From ' + str(self.generated_by.username)

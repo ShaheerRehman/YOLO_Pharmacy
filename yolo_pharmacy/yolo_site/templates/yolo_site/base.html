@@ -47,6 +47,10 @@
                         <li class="nav-item">
                         <a class="nav-link active" aria-current="page" title="Manage Companies" href="{% url 'comp_list' %}">Companies</a>
                         </li>
+                    {% else %}
+                        <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" title="Generate Bill" href="{% url 'bill_create' %}">Generate Bill</a>
+                        </li>
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" title="Manage Medicines" href="{% url 'med_list' %}">Medicines</a>

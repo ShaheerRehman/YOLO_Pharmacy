@@ -1,0 +1,10 @@
+{% extends 'yolo_site/base.html' %}
+{% block content %}
+    <h2>Delete Bill Number {{ billdetails.pk }}?</h2>
+    <hr>
+    <form method="post">
+        {% csrf_token %}
+        <input class="btn btn-danger rightPadBtn" type="submit" value="Delete">
+        <a class="btn btn-secondary" href="{% url 'bill_detail' pk=billdetails.pk %}">Cancel</a>
+    </form>
+{% endblock %}

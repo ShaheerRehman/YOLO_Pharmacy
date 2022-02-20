@@ -1,17 +1,23 @@
 {% extends 'yolo_site/base.html' %}
 {% block content %}
-    <h1 class="display-6 fw-bold">Welcome to my site</h1>
+    <h1 class="display-6 fw-bold">Welcome to YOLO Pharma!</h1>
     <hr>
-    <p></p>
     {% if user.is_authenticated %}
-        <a class="btn btn-primary rightPadBtn" href="{% url 'med_create' %}">Add Medicine</a>
-        <a class="btn btn-primary rightPadBtn" href="{% url 'med_list' %}">Medicines</a>
+        <p></p>
+        <br>
+        <a class="btn btn-primary rightPadBtn bottomPadBtn" href="{% url 'med_create' %}">Add Medicine</a>
+        <a class="btn btn-info rightPadBtn bottomPadBtn" href="{% url 'med_list' %}">Medicines</a>
+        <a class="btn btn-primary rightPadBtn bottomPadBtn" href="{% url 'bill_create' %}">Generate Bill</a>
+        <a class="btn btn-info rightPadBtn bottomPadBtn" href="{% url 'bill_list' %}">Bills Info</a>
         {% if user.is_superuser %}
-            <a class="btn btn-primary rightPadBtn" href="{% url 'register' %}">Add Employee</a>
-            <a class="btn btn-primary rightPadBtn" href="{% url 'emp_list' %}">Employees</a>
-            <a class="btn btn-primary rightPadBtn" href="{% url 'comp_create' %}">Add Company</a>
-            <a class="btn btn-primary rightPadBtn" href="{% url 'comp_list' %}">Companies</a>
+            <a class="btn btn-primary rightPadBtn bottomPadBtn" href="{% url 'register' %}">Add Employee</a>
+            <a class="btn btn-info rightPadBtn bottomPadBtn" href="{% url 'emp_list' %}">Employees</a>
+            <a class="btn btn-primary rightPadBtn bottomPadBtn" href="{% url 'comp_create' %}">Add Company</a>
+            <a class="btn btn-info rightPadBtn bottomPadBtn" href="{% url 'comp_list' %}">Companies</a>
         {% endif %}
+    {% else %}
+        <h4><a href="{% url 'login' %}">Login</a> as an employee or an admin to access more options</h4>
+        <p></p>
     {% endif %}
-    <a class="btn btn-primary rightPadBtn" href="{% url 'about' %}">About Us</a>
+    <a class="btn btn-secondary rightPadBtn bottomPadBtn" href="{% url 'about' %}">About Us</a>
 {% endblock %}

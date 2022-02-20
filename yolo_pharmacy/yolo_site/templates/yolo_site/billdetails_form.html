@@ -1,0 +1,30 @@
+{% extends 'yolo_site/base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block content %}
+
+    <h1 class="display-5 fw-bold">Generate Bill</h1>
+    <hr>
+
+    <form method='post'>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-6">
+                {% bootstrap_field form.customer %}
+            </div>
+            <div class="col-6">
+                {% bootstrap_field form.med_id %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                {% bootstrap_field form.quantity %}
+            </div>
+        </div>
+
+        <p></p>
+        <div class="container rel">
+            <input class="btn btn-success btn-right" type="submit" value='Generate Bill'>
+        </div>
+    </form>
+{% endblock %}

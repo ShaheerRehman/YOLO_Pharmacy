@@ -1,6 +1,8 @@
+
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import render
 from django.utils import timezone
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from . import models
@@ -112,3 +114,30 @@ class MedDeleteView(LoginRequiredMixin, DeleteView):
     model = models.Medicine
     success_url = reverse_lazy('med_list')
 
+
+class BillCreateView(LoginRequiredMixin, CreateView):
+    model = models.BillDetails
+    form_class = forms.BillDetailsForm
+    redirect_field_name = 'yolo_site/billdetails_detail.html'
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.generated_by = self.request.user
+        obj.save()
+        obj.update_stock()
+
+        obj.med_id.save()
+        self.object = obj
+        return HttpResponseRedirect(self.get_success_url())
+
+class BillListView(LoginRequiredMixin, ListView):
+    model = models.BillDetails
+    def get_queryset(self):
+        return models.BillDetails.objects.filter(created_on__lte=timezone.now()).order_by('-created_on')
+
+class BillDetailView(LoginRequiredMixin, DetailView):
+    model = models.BillDetails
+
+class BillDeleteView(LoginRequiredMixin, DeleteView):
+    model = models.BillDetails
+    success_url = reverse_lazy('bill_list')
