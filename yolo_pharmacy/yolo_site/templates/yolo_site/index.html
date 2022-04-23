@@ -18,6 +18,9 @@
     {% else %}
         <h4><a href="{% url 'login' %}">Login</a> as an employee or an admin to access more options</h4>
         <p></p>
+
+        <h4>To get access to owner credentials and the employee's credentials, visit the About Us page by clicking the button below</h4>
+        <p></p>
     {% endif %}
     <a class="btn btn-secondary rightPadBtn bottomPadBtn" href="{% url 'about' %}">About Us</a>
 {% endblock %}
